@@ -19,13 +19,22 @@ public class PlayerMovement : MonoBehaviour
     private bool canDoubleJump = false;
 
     private PlayerAnimation playerAnim;
+    public GameObject smokePosition;
 
     private bool gameStarted;
+
+
+    private BGScroller bgScroller;
+
+    private PlayerDamageShot playerShoot;
+
 
     void Awake()
     {
         myBody = GetComponent<Rigidbody>();
         playerAnim = GetComponent<PlayerAnimation>();
+        bgScroller = GameObject.Find(Tags.BACKGROUND_GAME_OBJ).GetComponent<BGScroller>();
+        playerShoot = GetComponent<PlayerDamageShot>();
     }
 
     private void Start()
@@ -41,12 +50,15 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer();
             PlayerGrounded();
             PlayerJump();
+            
+            
         }
 
     }
 
     void MovePlayer()
     {
+
         myBody.velocity = new Vector3(movementSpeed, myBody.velocity.y, 0f);
     }
 
@@ -56,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded && playerJumped)
         {
-            playerJumped = false;
+            playerJumped = true;
             playerAnim.DidLand();
         }
 
@@ -64,33 +76,84 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void PlayerJump()
+
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canDoubleJump) //double jump
+
+        if (Input.GetKey(KeyCode.Space) && isGrounded)
+
         {
-            canDoubleJump = false;
-            myBody.AddForce(new Vector3(0, secondJumpPower, 0));
-            Debug.Log("Jumped twice");
+
+            playerAnim.DidJump();
+
+            myBody.AddForce(new Vector3(0, jumpPower, 0));
+
+            StartCoroutine(Jumping());
+            playerJumped = false;
+            canDoubleJump = true;
+
+            Debug.Log("Jumped Once");
+
         }
 
+        else if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canDoubleJump)
 
-        else if (Input.GetKeyUp(KeyCode.Space) && isGrounded) //single jump
         {
-            playerAnim.DidJump();
-            myBody.AddForce(new Vector3(0, jumpPower, 0));
-            playerJumped = true;
-            canDoubleJump = true;
-            Debug.Log("Jumped once");
+
+            canDoubleJump = false;
+
+            myBody.AddForce(new Vector3(0, secondJumpPower, 0));
+
+            Debug.Log("Jumped Twice");
+
         }
 
     }
+
+    #region OLD CODE player Jumped
+    /* void PlayerJump()
+     {
+         if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canDoubleJump) //double jump
+         {
+             canDoubleJump = false;
+             myBody.AddForce(new Vector3(0, secondJumpPower, 0));
+             Debug.Log("Jumped twice");
+         }
+
+
+         else if (Input.GetKeyUp(KeyCode.Space) && isGrounded) //single jump
+         {
+             playerAnim.DidJump();
+             myBody.AddForce(new Vector3(0, jumpPower, 0));
+             playerJumped = true;
+             canDoubleJump = true;
+             Debug.Log("Jumped once");
+         }
+
+     } */
+    #endregion
 
     IEnumerator StartGame()
     {
         yield return new WaitForSeconds(2f);
         gameStarted = true;
+        bgScroller.canScroll = true;
+        playerShoot.canShoot = true;
+        GamePlayController.instance.canCountScore = true;
         playerAnim.PlayerRun();
+        smokePosition.SetActive(true);
+        
        // playerAnim.PlayerIdle();
 
     }
+
+    IEnumerator Jumping()
+
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        playerJumped = true;
+
+    }
+
 
 }//class

@@ -62,12 +62,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BG Scroller Script\BGScroller.cs" />
+    <Compile Include="Assets\Scripts\Bullet Scripts\BulletScript.cs" />
     <Compile Include="Assets\Scripts\Camera Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Collector Scripts\Collector.cs" />
+    <Compile Include="Assets\Scripts\Effects scripts\ParticleEffectScript.cs" />
+    <Compile Include="Assets\Scripts\Game managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game managers\GamePlayController.cs" />
+    <Compile Include="Assets\Scripts\Game managers\MainMenuController.cs" />
+    <Compile Include="Assets\Scripts\Game managers\MainMenuSounds.cs" />
     <Compile Include="Assets\Scripts\Level Generator Scripts\LevelGenerator.cs" />
+    <Compile Include="Assets\Scripts\Level Generator Scripts\LevelGeneratorPoolling.cs" />
+    <Compile Include="Assets\Scripts\Level Generator Scripts\TimedObjectDestructor.cs" />
+    <Compile Include="Assets\Scripts\Monster Scripts\Monster.cs" />
     <Compile Include="Assets\Scripts\OverControll\Tags.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerAnimation.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerDamageShot.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerFootSmoke.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerHealthDamagePooling.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerSounds.cs" />
     <None Include="Assets\Awesome Runner Assets\Models\Robots\Textures\Glass\glass.shader" />
+    <None Include="Assets\MainMenuMusic\Readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Frog Runner/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

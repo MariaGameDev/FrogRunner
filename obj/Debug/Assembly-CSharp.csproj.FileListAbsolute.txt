@@ -266,8 +266,8 @@ D:\Frog Runner\Temp\bin\Debug\UnityEngine.WindModule.xml
 D:\Frog Runner\Temp\bin\Debug\UnityEngine.XRModule.xml
 D:\Frog Runner\Temp\bin\Debug\UnityEngine.ClusterInputModule.xml
 D:\Frog Runner\Temp\bin\Debug\UnityEngine.ClusterRendererModule.xml
-D:\Frog Runner\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 D:\Frog Runner\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 D:\Frog Runner\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Frog Runner\obj\Debug\Assembly-CSharp.dll
 D:\Frog Runner\obj\Debug\Assembly-CSharp.pdb
+D:\Frog Runner\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

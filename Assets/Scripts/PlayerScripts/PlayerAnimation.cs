@@ -13,9 +13,14 @@ public class PlayerAnimation : MonoBehaviour
         anim = GetComponent<Animation>();
     }
 
+    public void PlayerRun()
+    {
+        anim.Play(Tags.ANIMATION_RUN);
+    }
+
     public void DidJump()
     {
-       
+        
         anim.Play(Tags.ANIMATION_JUMP);
         anim.PlayQueued(Tags.ANIMATION_JUMP_FALL);
         Debug.Log("Played ANIMATION JUMP!");
@@ -30,10 +35,7 @@ public class PlayerAnimation : MonoBehaviour
 
     }
 
-    public void PlayerRun()
-    {
-        anim.Play(Tags.ANIMATION_RUN);
-    }
+    
 
    /* public void PlayerIdle()
     {

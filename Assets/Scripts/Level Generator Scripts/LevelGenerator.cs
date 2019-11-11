@@ -69,7 +69,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Start()
     {
-        GenerateLevel();
+        GenerateLevel(true);
     }
 
 
@@ -128,7 +128,7 @@ public class LevelGenerator : MonoBehaviour
         
     }
 
-    void CreatePlatformsFromPositionInfo(PlatformPositionInfo[] platformPositionInfo)
+    void CreatePlatformsFromPositionInfo(PlatformPositionInfo[] platformPositionInfo, bool gameStarted)
     {
         for (int i = 0; i < platformPositionInfo.Length; i++)
         {
@@ -142,23 +142,59 @@ public class LevelGenerator : MonoBehaviour
             Vector3 platformPosition;
 
             //check if is game has started or not
-            platformPosition = new Vector3(distance_between_platforms * i, positionInfo.positionY, 0);
+            if (gameStarted)
+            {
+                platformPosition = new Vector3(distance_between_platforms * i, positionInfo.positionY, 0);
+            }
+            else
+            {
+                platformPosition = new Vector3(distance_between_platforms + platforLastPositionX, positionInfo.positionY, 0);
+            }
 
             //save the platform position x for later use
+            platforLastPositionX = platformPosition.x;
+
 
             Transform createBlock = (Transform)Instantiate(platformPrefab, platformPosition, Quaternion.identity);
             createBlock.parent = platform_parent;
 
             if (positionInfo.hasMonster)
             {
-                //code later
+                if (gameStarted)
+                {
+                    platformPosition = new Vector3(distance_between_platforms * i, positionInfo.positionY + 0.1f, 0); 
+                }
+                else
+                {
+                    platformPosition = new Vector3(distance_between_platforms + platforLastPositionX, positionInfo.positionY + 0.1f, 0);
+                }
+
+                Transform createMonster = (Transform)Instantiate(monster, platformPosition, Quaternion.Euler(0,-90,0));
+
+                createMonster.parent = monster_parent;
+
             }
 
 
 
             if (positionInfo.hasHealthCollectable)
             {
-                //code later
+                if (gameStarted)
+                {
+                    platformPosition = new Vector3(distance_between_platforms * i, 
+                        positionInfo.positionY + Random.Range(healthCollectable_MinY, healthCollectable_MaxY));
+                }
+                else
+                {
+                    platformPosition = new Vector3(distance_between_platforms + platforLastPositionX,
+                        positionInfo.positionY + Random.Range(healthCollectable_MinY, healthCollectable_MaxY));
+                }
+
+                Transform createHealthCollectable =(Transform)Instantiate(health_CollectAble, platformPosition, Quaternion.identity);
+                createHealthCollectable.parent = health_Collactable_parent;
+
+
+
             }
 
         } //for loop
@@ -166,7 +202,7 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
-    public void GenerateLevel()
+    public void GenerateLevel(bool gameStarted)
     {
         PlatformPositionInfo[] platforminfo = new PlatformPositionInfo[levelLength];
 
@@ -176,7 +212,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         FillOutPositionInfo(platforminfo);
-        CreatePlatformsFromPositionInfo(platforminfo);
+        CreatePlatformsFromPositionInfo(platforminfo, gameStarted);
     }
 
 } //class
